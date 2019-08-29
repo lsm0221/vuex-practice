@@ -27,7 +27,8 @@ export default new Vuex.Store({
     ]
   },
   getters: {
-    count: state => ++state.count,
+    // 获取状态,在状态的基础上加一些修饰,不会更改状态
+    count: state => state.count,
     completedTodos: state => state.todos.filter(todo => todo.completed),
     completedTodosCount: (state, getters) => getters.completedTodos.length,
     // 第一个id是外部传参进来的id,第二个id是内部的id
@@ -35,7 +36,8 @@ export default new Vuex.Store({
 
   },
   mutations: {
-
+    incrementCount: state => state.count++,
+    decrementCount: (state, payload) => state.count -= payload.amount
   },
   actions: {
 
