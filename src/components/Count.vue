@@ -12,14 +12,6 @@ export default {
   name: "count",
   components: {},
   computed: mapState(["count", "todos"])
-  //   computed: {
-  //     count() {
-  //       return this.$store.state.count;
-  //     },
-  //     todos() {
-  //       return this.$store.state.todos;
-  //     }
-  //   }
 };
 </script>
 

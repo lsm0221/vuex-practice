@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import {
+  stat
+} from 'fs';
 
 Vue.use(Vuex)
 
@@ -14,16 +17,21 @@ export default new Vuex.Store({
       }, {
         id: 2,
         title: "todo item2",
-        completed: false
+        completed: true
       }, {
-        id: 2,
+        id: 3,
         title: "todo item3",
-        completed: false
+        completed: true
       }
 
     ]
   },
   getters: {
+    count: state => ++state.count,
+    completedTodos: state => state.todos.filter(todo => todo.completed),
+    completedTodosCount: (state, getters) => getters.completedTodos.length,
+    // 第一个id是外部传参进来的id,第二个id是内部的id
+    getTodosById: state => id => state.todos.find(todo => todo.id == id)
 
   },
   mutations: {
