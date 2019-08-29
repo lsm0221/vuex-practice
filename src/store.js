@@ -4,6 +4,7 @@ import {
   stat
 } from 'fs';
 
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -36,10 +37,30 @@ export default new Vuex.Store({
 
   },
   mutations: {
+    // 改变状态
     incrementCount: state => state.count++,
-    decrementCount: (state, payload) => state.count -= payload.amount
+    decrementCount: (state, payload) => state.count -= payload.amount,
+    setTodos: (state, res) => state.todos = res
   },
   actions: {
-
+    // 不改变状态,间接调用mutations
+    incrementCountAsync: ({
+      commit
+    }) => {
+      setTimeout(() => {
+        // context /*=this.$store */.
+        commit("incrementCount")
+      }, 2000)
+    },
+    decrementCountAsync: (context, payload) => {
+      setTimeout(() => {
+        context /*=this.$store */ .commit("decrementCount", payload)
+      }, 1000)
+    },
+    async fetchDataAsync(context) {
+      const response = await axios.get("http://jsonplaceholder.typicode.com/todos");
+      // console.log(response);
+      context.commit("setTodos", response.data)
+    }
   }
 })
